@@ -1,0 +1,42 @@
+group = 'workshop'
+version = '0.1'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    jcenter()
+}
+
+ext {
+    dropwizard_metrics_version = '4.0.2'
+    guava_version = '25.1-jre'
+    logback_version = '1.2.3'
+    junit_version = '4.12'
+}
+
+dependencies {
+    compile "ch.qos.logback:logback-classic:$logback_version"
+    compile "io.dropwizard.metrics:metrics-core:$dropwizard_metrics_version"
+    compile "com.google.guava:guava:$guava_version"
+    testCompile "junit:junit:$junit_version"
+}
+
+idea {
+    module {
+        downloadJavadoc = false
+        downloadSources = true
+        inheritOutputDirs = false
+        outputDir = file('build/idea/main')
+        testOutputDir = file('build/idea/test')
+    }
+}
+
+wrapper {
+    gradleVersion = '4.8'
+    // noinspection UnnecessaryQualifiedReference
+    distributionType = Wrapper.DistributionType.ALL
+}
